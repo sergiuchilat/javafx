@@ -38,6 +38,7 @@ public class LoginFormView extends View{
             @Override
             public void handle(MouseEvent mouseEvent) {
                 Stage mainStage = (Stage) loginButton.getScene().getWindow();
+                authResponseStatusLabel.setText("");
                 if(loginFormViewModel.login()){
                     mainPageView = new MainPageView();
                     mainPageView.loadView(mainStage, "MainPage");

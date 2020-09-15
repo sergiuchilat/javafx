@@ -10,6 +10,6 @@
         <JFXTextField fx:id="usernameInput" layoutX="223.0" layoutY="36.0" promptText="Username" />
         <JFXTextField fx:id="passwordInput" layoutX="223.0" layoutY="88.0" promptText="Password" />
         <JFXButton fx:id="loginButton" buttonType="RAISED" layoutX="268.0" layoutY="150.0" text="Login" />
-        <Label layoutX="223.0" layoutY="133.0" text="Incorrect login or password" textFill="RED" fx:id="authResponseStatusLabel" />
+        <Label fx:id="authResponseStatusLabel" layoutX="223.0" layoutY="133.0" textFill="RED" />
     </children>
 </AnchorPane>

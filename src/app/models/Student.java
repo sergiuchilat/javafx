@@ -1,4 +1,4 @@
-package crud.model;
+package app.models;
 
 public class Student {
     public static Integer counter = 1;
@@ -7,6 +7,7 @@ public class Student {
     private Integer age;
 
     public Student(String name, Integer age) {
+        this.id = counter++;
         this.name = name;
         this.age = age;
     }

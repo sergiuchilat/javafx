@@ -1,6 +1,6 @@
-package crud.dao;
+package app.dao;
 
-import crud.model.Student;
+import app.models.Student;
 
 public class StudentDAO implements IDAO<Student>{
     private final Student[] data;

@@ -1,4 +1,4 @@
-package crud.service;
+package app.service;
 
 public interface IService<T> {
     T create(T t);

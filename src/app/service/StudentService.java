@@ -1,7 +1,7 @@
-package crud.service;
+package app.service;
 
-import crud.dao.StudentDAO;
-import crud.model.Student;
+import app.dao.StudentDAO;
+import app.models.Student;
 
 public class StudentService implements IService<Student> {
     private final StudentDAO studentDAO = new StudentDAO();

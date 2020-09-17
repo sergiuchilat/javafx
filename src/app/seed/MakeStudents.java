@@ -3,9 +3,8 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package crud.seed;
-import crud.model.Student;
-import crud.service.StudentService;
+package app.seed;
+import app.models.Student;
 
 /**
  *

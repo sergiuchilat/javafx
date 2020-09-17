@@ -1,4 +1,4 @@
-package crud.dao;
+package app.dao;
 
 public interface IDAO<T> {
     T create(T t);

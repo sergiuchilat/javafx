@@ -1,4 +1,4 @@
-package app.modules.auth;
+package app.models;
 
 public class LoginModel {
 }

@@ -33,6 +33,8 @@ public class LoginFormView extends View{
         usernameInput.textProperty().bindBidirectional(loginFormViewModel.getUsername());
         passwordInput.textProperty().bindBidirectional(loginFormViewModel.getPassword());
         authResponseStatusLabel.setText("");
+        loginFormViewModel.getUsername().setValue("admin");
+        loginFormViewModel.getPassword().setValue("1234");
 
         loginButton.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>(){
             @Override

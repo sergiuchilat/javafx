@@ -1,32 +1,56 @@
 package app.modules.main;
 
 import app.core.View;
+import app.models.StudentModel;
 import app.modules.auth.LoginFormView;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
+import javafx.stage.Popup;
 import javafx.stage.Stage;
-import app.models.Student;
 
-public class MainPageView extends View{
+import java.net.URL;
+import java.util.ResourceBundle;
+
+public class MainPageView extends View implements Initializable {
     @FXML
     private Button backToLoginBtn;
 
     @FXML
-    private TableView tableView;
+    private Button createBtn;
+
+    @FXML
+    private TableView<StudentModel> tableView;
+
+    @FXML
+    public TableColumn<StudentModel, Integer> studentId;
+    @FXML
+    public TableColumn<StudentModel, String> studentName;
+    @FXML
+    public TableColumn<StudentModel, Integer> studentAge;
 
     private LoginFormView loginFormView;
     MainPageViewModel mainPageViewModel;
 
 
+    private final ObservableList<StudentModel> students = FXCollections.observableArrayList(
+            new StudentModel("Amos", 12),
+            new StudentModel("Keep", 23)
+    );
+
     @FXML
-    public void initialize(){
+    public void initialize(URL location, ResourceBundle resources) {
         mainPageViewModel = new MainPageViewModel();
-        backToLoginBtn.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>(){
+
+        backToLoginBtn.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
                 Stage mainStage = (Stage) backToLoginBtn.getScene().getWindow();
@@ -35,15 +59,29 @@ public class MainPageView extends View{
             }
         });
 
-        ObservableList<Student> students = FXCollections.observableArrayList();
+        createBtn.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                Stage mainStage = (Stage) backToLoginBtn.getScene().getWindow();
+                Popup createPopup = new Popup();
+                TextField nameInput = new TextField();
+                nameInput.setText("Name");
+                createPopup.getContent().add(nameInput);
+                createPopup.show(mainStage);
+            }
+        });
 
-        tableView = new TableView<Student>();
 
-        students.add(new Student("Mihai Eminescu", 123));
-        students.add(new Student("Ion Creanga", 123));
-        System.out.println(students);
+        try{
+            studentId.setCellValueFactory(new PropertyValueFactory<>("Id"));
+            studentName.setCellValueFactory(new PropertyValueFactory<>("Name"));
+            studentAge.setCellValueFactory(new PropertyValueFactory<>("Age"));
+            tableView.setItems(students);
+        } catch (Exception e) {
+            System.out.println(e);
+        }
 
-        tableView.setItems(students);
+        //System.out.println(students);
 
     }
 }

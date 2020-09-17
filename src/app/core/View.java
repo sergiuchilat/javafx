@@ -11,7 +11,7 @@ abstract public class View {
             String path = viewName + "View.fxml";
             Parent root = FXMLLoader.load(getClass().getResource(path));
             stage.setTitle("Java APP");
-            stage.setScene(new Scene(root, 600, 875));
+            stage.setScene(new Scene(root, 600, 400));
             stage.show();
         } catch(Exception e) {
             System.out.println("Load exception");

@@ -1,8 +1,9 @@
-package app.modules.main;
+package app.modules.students.main;
 
 import app.core.View;
 import app.models.StudentModel;
 import app.modules.auth.LoginFormView;
+import app.modules.students.create.StudentCreateDialogView;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -15,18 +16,16 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Modality;
-import javafx.stage.Popup;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class MainPageView extends View implements Initializable {
+public class StudentListView extends View implements Initializable {
     @FXML
     private Button backToLoginBtn;
 
@@ -44,7 +43,7 @@ public class MainPageView extends View implements Initializable {
     public TableColumn<StudentModel, Integer> studentAge;
 
     private LoginFormView loginFormView;
-    MainPageViewModel mainPageViewModel;
+    StudentListViewModel mainPageViewModel;
 
 
     private final ObservableList<StudentModel> students = FXCollections.observableArrayList(
@@ -54,7 +53,7 @@ public class MainPageView extends View implements Initializable {
 
     @FXML
     public void initialize(URL location, ResourceBundle resources) {
-        mainPageViewModel = new MainPageViewModel();
+        mainPageViewModel = new StudentListViewModel();
 
         backToLoginBtn.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
             @Override
@@ -80,15 +79,12 @@ public class MainPageView extends View implements Initializable {
         } catch (Exception e) {
             System.out.println(e);
         }
-
-        //System.out.println(students);
-
     }
     @FXML
-    void onOpenDialog(ActionEvent event) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("CreateDialogView.fxml"));
+    void onOpenCreateDialog(ActionEvent event) throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../create/StudentCreateDialogView.fxml"));
         Parent parent = fxmlLoader.load();
-        CreateDialogView createDialogView = fxmlLoader.<CreateDialogView>getController();
+        StudentCreateDialogView createDialogView = fxmlLoader.<StudentCreateDialogView>getController();
         createDialogView.setAppMainObservableList(students);
 
         Scene scene = new Scene(parent, 300, 200);

@@ -1,4 +1,4 @@
-package app.modules.main;
+package app.modules.students.create;
 
 import app.models.StudentModel;
 import javafx.collections.ObservableList;
@@ -8,7 +8,7 @@ import javafx.scene.Node;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
-public class CreateDialogView  {
+public class StudentCreateDialogView {
 
     @FXML
     private TextField studentNameInput;

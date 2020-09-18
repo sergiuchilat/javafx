@@ -8,7 +8,7 @@ import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import app.core.View;
-import app.modules.main.MainPageView;
+import app.modules.students.main.StudentListView;
 
 
 public class LoginFormView extends View{
@@ -25,7 +25,7 @@ public class LoginFormView extends View{
     @FXML
     private Label authResponseStatusLabel;
 
-    private MainPageView mainPageView;
+    private StudentListView mainPageView;
 
     @FXML
     public void initialize(){
@@ -42,8 +42,8 @@ public class LoginFormView extends View{
                 Stage mainStage = (Stage) loginButton.getScene().getWindow();
                 authResponseStatusLabel.setText("");
                 if(loginFormViewModel.login()){
-                    mainPageView = new MainPageView();
-                    mainPageView.loadView(mainStage, "MainPage");
+                    mainPageView = new StudentListView();
+                    mainPageView.loadView(mainStage, "StudentList");
                     authResponseStatusLabel.setText("Success");
                 } else {
                     authResponseStatusLabel.setText("Incorrect login or password");

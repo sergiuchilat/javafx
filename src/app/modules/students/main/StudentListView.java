@@ -4,6 +4,7 @@ import app.core.View;
 import app.models.StudentModel;
 import app.modules.auth.LoginFormView;
 import app.modules.students.create.StudentCreateDialogView;
+import app.modules.students.edit.StudentEditDialogView;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -11,12 +12,15 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -71,15 +75,33 @@ public class StudentListView extends View implements Initializable {
             }
         });
 
-        try{
+        try {
             studentId.setCellValueFactory(new PropertyValueFactory<>("Id"));
             studentName.setCellValueFactory(new PropertyValueFactory<>("Name"));
             studentAge.setCellValueFactory(new PropertyValueFactory<>("Age"));
             tableView.setItems(students);
+
+
+
+
+
         } catch (Exception e) {
             System.out.println(e);
         }
+
+        tableView.setOnMouseClicked((MouseEvent event) -> {
+            if (event.getButton().equals(MouseButton.PRIMARY) && event.getClickCount() == 2){
+                System.out.println(tableView.getSelectionModel().getSelectedItem());
+                try {
+                    onOpenEditDialog();
+                } catch (Exception e) {
+                    System.out.println(e);
+                }
+            }
+        });
+
     }
+
     @FXML
     void onOpenCreateDialog(ActionEvent event) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../create/StudentCreateDialogView.fxml"));
@@ -92,5 +114,21 @@ public class StudentListView extends View implements Initializable {
         stage.initModality(Modality.APPLICATION_MODAL);
         stage.setScene(scene);
         stage.showAndWait();
+    }
+
+    @FXML
+    void onOpenEditDialog() throws IOException {
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../create/StudentEditDialogView.fxml"));
+            Parent parent = fxmlLoader.load();
+            StudentEditDialogView editDialogView = fxmlLoader.<StudentEditDialogView>getController();
+            editDialogView.setAppMainObservableList(students);
+
+            Scene scene = new Scene(parent, 300, 200);
+            Stage stage = new Stage();
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.setScene(scene);
+            stage.showAndWait();
+        } catch (Exception e){}
     }
 }

@@ -8,6 +8,8 @@ import javafx.scene.Node;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
+import java.util.Collections;
+
 public class StudentEditDialogView {
 
     @FXML
@@ -20,6 +22,7 @@ public class StudentEditDialogView {
 
     private Integer selectedIndex;
     private StudentModel selectedItem;
+    private StudentsRepository studentsRepository = new StudentsRepository();
 
     @FXML
     void btnUpdateClicked(ActionEvent event) {
@@ -34,6 +37,9 @@ public class StudentEditDialogView {
 
         if(studentName.length() > 0 &&studentAge > 0) {
             appMainObservableList.set(selectedIndex, new StudentModel(studentNameInput.getText(), Integer.valueOf(studentAgeInput.getText())));
+            //studentsRepository.update(selectedItem.getId(), new StudentModel(studentNameInput.getText(), Integer.valueOf(studentAgeInput.getText())));
+            //appMainObservableList.clear();
+            //Collections.addAll(appMainObservableList, studentsRepository.getAll());
             closeStage(event);
         }
     }

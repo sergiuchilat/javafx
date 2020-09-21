@@ -8,6 +8,8 @@ import javafx.scene.Node;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
+import java.util.Collections;
+
 public class StudentCreateDialogView {
 
     @FXML
@@ -17,6 +19,7 @@ public class StudentCreateDialogView {
     private TextField studentAgeInput;
 
     private ObservableList<StudentModel> appMainObservableList;
+    private StudentsRepository studentsRepository = new StudentsRepository();
 
     @FXML
     void btnAddClicked(ActionEvent event) {
@@ -31,7 +34,10 @@ public class StudentCreateDialogView {
 
         if(studentName.length() > 0 &&studentAge > 0) {
             StudentModel data = new StudentModel(studentName, studentAge);
-            appMainObservableList.add(data);
+            //appMainObservableList.add(data);
+            studentsRepository.create(data);
+            appMainObservableList.clear();
+            Collections.addAll(appMainObservableList, studentsRepository.getAll());
             closeStage(event);
         }
     }

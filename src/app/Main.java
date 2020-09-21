@@ -1,6 +1,6 @@
 package app;
 
-import app.modules.students.main.StudentListView;
+import app.modules.students.StudentListView;
 import javafx.application.Application;
 import javafx.stage.Stage;
 import app.modules.auth.LoginFormView;

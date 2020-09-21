@@ -9,7 +9,7 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import app.core.View;
-import app.modules.students.main.StudentListView;
+import app.modules.students.StudentListView;
 
 
 public class LoginFormView extends View{
@@ -25,8 +25,6 @@ public class LoginFormView extends View{
 
     @FXML
     private Label authResponseStatusLabel;
-
-    private StudentListView mainPageView;
 
     @FXML
     public void initialize(){
@@ -69,7 +67,7 @@ public class LoginFormView extends View{
         Stage mainStage = (Stage) loginButton.getScene().getWindow();
         authResponseStatusLabel.setText("");
         if(loginFormViewModel.login()){
-            mainPageView = new StudentListView();
+            StudentListView mainPageView = new StudentListView();
             mainPageView.loadView(mainStage, "StudentList");
             authResponseStatusLabel.setText("Success");
         } else {

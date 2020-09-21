@@ -1,13 +1,8 @@
-package app.modules.students.main;
+package app.modules.students;
 
 import app.core.View;
 import app.models.StudentModel;
 import app.modules.auth.LoginFormView;
-import app.modules.students.create.StudentCreateDialogView;
-import app.modules.students.edit.StudentEditDialogView;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -46,18 +41,11 @@ public class StudentListView extends View implements Initializable {
     public TableColumn<StudentModel, Integer> studentAge;
 
     private LoginFormView loginFormView;
-    StudentListViewModel mainPageViewModel;
-
-
-    private final ObservableList<StudentModel> students = FXCollections.observableArrayList(
-            new StudentModel("Ion Creanga", 12),
-            new StudentModel("Mihai Eminescu", 23),
-            new StudentModel("Vasile Alecsandri", 34)
-    );
+    StudentListViewModel studentsListViewModel;
 
     @FXML
     public void initialize(URL location, ResourceBundle resources) {
-        mainPageViewModel = new StudentListViewModel();
+        studentsListViewModel = new StudentListViewModel();
 
         backToLoginBtn.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
             @Override
@@ -72,7 +60,7 @@ public class StudentListView extends View implements Initializable {
             studentId.setCellValueFactory(new PropertyValueFactory<>("Id"));
             studentName.setCellValueFactory(new PropertyValueFactory<>("Name"));
             studentAge.setCellValueFactory(new PropertyValueFactory<>("Age"));
-            tableView.setItems(students);
+            tableView.setItems(studentsListViewModel.getStudents());
 
         } catch (Exception e) {
             System.out.println(e.toString());
@@ -96,7 +84,7 @@ public class StudentListView extends View implements Initializable {
                 }
             } else if(event.getCode() == KeyCode.DELETE){
                 try {
-                    students.remove(tableView.getSelectionModel().getSelectedItem());
+                    studentsListViewModel.getStudents().remove(tableView.getSelectionModel().getSelectedItem());
                 } catch (Exception e){
                     System.out.println(e.toString());
                 }
@@ -106,10 +94,10 @@ public class StudentListView extends View implements Initializable {
 
     @FXML
     void onOpenCreateDialog() throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../create/StudentCreateDialogView.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("StudentCreateDialogView.fxml"));
         Parent parent = fxmlLoader.load();
         StudentCreateDialogView createDialogView = fxmlLoader.getController();
-        createDialogView.setAppMainObservableList(students);
+        createDialogView.setAppMainObservableList(studentsListViewModel.getStudents());
 
         Scene scene = new Scene(parent, 300, 200);
         Stage stage = new Stage();
@@ -120,10 +108,10 @@ public class StudentListView extends View implements Initializable {
 
     @FXML
     void onOpenEditDialog(StudentModel selectedItem) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../edit/StudentEditDialogView.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("StudentEditDialogView.fxml"));
         Parent parent = fxmlLoader.load();
         StudentEditDialogView editDialogView = fxmlLoader.getController();
-        editDialogView.setAppMainObservableList(students);
+        editDialogView.setAppMainObservableList(studentsListViewModel.getStudents());
         editDialogView.setSelectedItem(selectedItem);
 
         Scene scene = new Scene(parent, 300, 200);

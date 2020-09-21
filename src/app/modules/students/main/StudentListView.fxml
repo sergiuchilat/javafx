@@ -7,14 +7,14 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="397.0" prefWidth="606.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.modules.students.main.StudentListView">
     <children>
-        <TableView fx:id="tableView" editable="true" layoutY="27.0" prefHeight="200.0" prefWidth="494.0">
+        <TableView fx:id="tableView" editable="true" layoutY="27.0" prefHeight="367.0" prefWidth="606.0">
             <columns>
                 <TableColumn fx:id="studentId" prefWidth="75.0" text="ID" />
-                <TableColumn fx:id="studentName" prefWidth="75.0" text="Name" />
-                <TableColumn fx:id="studentAge" prefWidth="75.0" text="Age" />
+                <TableColumn fx:id="studentName" prefWidth="374.3999710083008" text="Name" />
+                <TableColumn fx:id="studentAge" minWidth="0.0" prefWidth="112.00003051757812" text="Age" />
             </columns>
         </TableView>
-        <Button fx:id="backToLoginBtn" layoutX="550.0" layoutY="2.0" mnemonicParsing="false" text="LogOut" />
-        <Button fx:id="createBtn" layoutX="553.0" layoutY="50.0" mnemonicParsing="false" onAction="#onOpenCreateDialog" text="Create" />
+        <Button fx:id="backToLoginBtn" layoutX="550.0" layoutY="1.0" mnemonicParsing="false" text="LogOut" />
+        <Button fx:id="createBtn" layoutX="494.0" layoutY="1.0" mnemonicParsing="false" onAction="#onOpenCreateDialog" text="Create" />
     </children>
 </AnchorPane>

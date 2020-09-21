@@ -18,7 +18,6 @@ public class StudentEditDialogView {
 
     private ObservableList<StudentModel> appMainObservableList;
 
-    private Integer selectedId;
     private Integer selectedIndex;
 
     @FXML
@@ -43,7 +42,6 @@ public class StudentEditDialogView {
     }
 
     public void setSelectedItem(StudentModel selectedItem){
-        this.selectedId = selectedItem.getId();
         this.selectedIndex = appMainObservableList.indexOf(selectedItem);
         this.studentAgeInput.setText(selectedItem.getAge().toString());
         this.studentNameInput.setText(selectedItem.getName());
@@ -54,5 +52,4 @@ public class StudentEditDialogView {
         Stage stage  = (Stage) source.getScene().getWindow();
         stage.close();
     }
-
 }

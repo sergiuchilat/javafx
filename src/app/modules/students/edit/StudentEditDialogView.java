@@ -19,6 +19,7 @@ public class StudentEditDialogView {
     private ObservableList<StudentModel> appMainObservableList;
 
     private Integer selectedIndex;
+    private StudentModel selectedItem;
 
     @FXML
     void btnUpdateClicked(ActionEvent event) {
@@ -37,11 +38,18 @@ public class StudentEditDialogView {
         }
     }
 
+    @FXML
+    void btnDeleteClicked(ActionEvent event){
+        appMainObservableList.remove(selectedItem);
+        closeStage(event);
+    }
+
     public void setAppMainObservableList(ObservableList<StudentModel> tvObservableList) {
         this.appMainObservableList = tvObservableList;
     }
 
     public void setSelectedItem(StudentModel selectedItem){
+        this.selectedItem = selectedItem;
         this.selectedIndex = appMainObservableList.indexOf(selectedItem);
         this.studentAgeInput.setText(selectedItem.getAge().toString());
         this.studentNameInput.setText(selectedItem.getName());

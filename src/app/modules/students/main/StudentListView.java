@@ -18,6 +18,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.KeyCode;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Modality;
@@ -49,8 +50,9 @@ public class StudentListView extends View implements Initializable {
 
 
     private final ObservableList<StudentModel> students = FXCollections.observableArrayList(
-            new StudentModel("Amos", 12),
-            new StudentModel("Keep", 23)
+            new StudentModel("Ion Creanga", 12),
+            new StudentModel("Mihai Eminescu", 23),
+            new StudentModel("Vasile Alecsandri", 34)
     );
 
     @FXML
@@ -66,45 +68,47 @@ public class StudentListView extends View implements Initializable {
             }
         });
 
-        createBtn.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent mouseEvent) {
-                Stage mainStage = (Stage) backToLoginBtn.getScene().getWindow();
-            }
-        });
-
         try {
             studentId.setCellValueFactory(new PropertyValueFactory<>("Id"));
             studentName.setCellValueFactory(new PropertyValueFactory<>("Name"));
             studentAge.setCellValueFactory(new PropertyValueFactory<>("Age"));
             tableView.setItems(students);
 
-
-
-
-
         } catch (Exception e) {
-            System.out.println(e);
+            System.out.println(e.toString());
         }
 
         tableView.setOnMouseClicked((MouseEvent event) -> {
             if (event.getButton().equals(MouseButton.PRIMARY) && event.getClickCount() == 2){
-                System.out.println(tableView.getSelectionModel().getSelectedItem().getId());
                 try {
                     onOpenEditDialog(tableView.getSelectionModel().getSelectedItem());
                 } catch (Exception e) {
-                    System.out.println(e);
+                    System.out.println(e.toString());
                 }
             }
         });
-
+        tableView.setOnKeyReleased(event -> {
+            if(event.getCode() == KeyCode.ENTER){
+                try {
+                    onOpenEditDialog(tableView.getSelectionModel().getSelectedItem());
+                } catch (Exception e){
+                    System.out.println(e.toString());
+                }
+            } else if(event.getCode() == KeyCode.DELETE){
+                try {
+                    students.remove(tableView.getSelectionModel().getSelectedItem());
+                } catch (Exception e){
+                    System.out.println(e.toString());
+                }
+            }
+        });
     }
 
     @FXML
-    void onOpenCreateDialog(ActionEvent event) throws IOException {
+    void onOpenCreateDialog() throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../create/StudentCreateDialogView.fxml"));
         Parent parent = fxmlLoader.load();
-        StudentCreateDialogView createDialogView = fxmlLoader.<StudentCreateDialogView>getController();
+        StudentCreateDialogView createDialogView = fxmlLoader.getController();
         createDialogView.setAppMainObservableList(students);
 
         Scene scene = new Scene(parent, 300, 200);
@@ -116,18 +120,16 @@ public class StudentListView extends View implements Initializable {
 
     @FXML
     void onOpenEditDialog(StudentModel selectedItem) throws IOException {
-        try {
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../edit/StudentEditDialogView.fxml"));
-            Parent parent = fxmlLoader.load();
-            StudentEditDialogView editDialogView = fxmlLoader.<StudentEditDialogView>getController();
-            editDialogView.setAppMainObservableList(students);
-            editDialogView.setSelectedItem(selectedItem);
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../edit/StudentEditDialogView.fxml"));
+        Parent parent = fxmlLoader.load();
+        StudentEditDialogView editDialogView = fxmlLoader.getController();
+        editDialogView.setAppMainObservableList(students);
+        editDialogView.setSelectedItem(selectedItem);
 
-            Scene scene = new Scene(parent, 300, 200);
-            Stage stage = new Stage();
-            stage.initModality(Modality.APPLICATION_MODAL);
-            stage.setScene(scene);
-            stage.showAndWait();
-        } catch (Exception e){}
+        Scene scene = new Scene(parent, 300, 200);
+        Stage stage = new Stage();
+        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.setScene(scene);
+        stage.showAndWait();
     }
 }

@@ -5,6 +5,7 @@ import com.jfoenix.controls.JFXTextField;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.input.KeyCode;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import app.core.View;
@@ -39,16 +40,40 @@ public class LoginFormView extends View{
         loginButton.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>(){
             @Override
             public void handle(MouseEvent mouseEvent) {
-                Stage mainStage = (Stage) loginButton.getScene().getWindow();
-                authResponseStatusLabel.setText("");
-                if(loginFormViewModel.login()){
-                    mainPageView = new StudentListView();
-                    mainPageView.loadView(mainStage, "StudentList");
-                    authResponseStatusLabel.setText("Success");
-                } else {
-                    authResponseStatusLabel.setText("Incorrect login or password");
+                login(loginFormViewModel);
+            }
+        });
+
+        usernameInput.setOnKeyReleased(event -> {
+            if(event.getCode() == KeyCode.ENTER){
+                try {
+                    login(loginFormViewModel);
+                } catch (Exception e){
+                    System.out.println(e.toString());
                 }
             }
         });
+
+        passwordInput.setOnKeyReleased(event -> {
+            if(event.getCode() == KeyCode.ENTER){
+                try {
+                    login(loginFormViewModel);
+                } catch (Exception e){
+                    System.out.println(e.toString());
+                }
+            }
+        });
+    }
+
+    private void login(LoginFormViewModel loginFormViewModel){
+        Stage mainStage = (Stage) loginButton.getScene().getWindow();
+        authResponseStatusLabel.setText("");
+        if(loginFormViewModel.login()){
+            mainPageView = new StudentListView();
+            mainPageView.loadView(mainStage, "StudentList");
+            authResponseStatusLabel.setText("Success");
+        } else {
+            authResponseStatusLabel.setText("Incorrect login or password");
+        }
     }
 }

@@ -18,27 +18,35 @@ public class StudentEditDialogView {
 
     private ObservableList<StudentModel> appMainObservableList;
 
+    private Integer selectedId;
+    private Integer selectedIndex;
+
     @FXML
-    void btnAddPersonClicked(ActionEvent event) {
+    void btnUpdateClicked(ActionEvent event) {
         String studentName = "";
         int studentAge = 0;
         try {
             studentName = studentNameInput.getText().trim();
             studentAge = Integer.parseInt(studentAgeInput.getText().trim());
-        } catch (Exception e) {}
+        } catch (Exception e) {
+            System.out.println(e.toString());
+        }
 
-        System.out.println(studentName);
-        System.out.println(studentAge);
         if(studentName.length() > 0 &&studentAge > 0) {
-            StudentModel data = new StudentModel(studentName, studentAge);
-            appMainObservableList.add(data);
+            appMainObservableList.set(selectedIndex, new StudentModel(studentNameInput.getText(), Integer.valueOf(studentAgeInput.getText())));
             closeStage(event);
         }
     }
 
     public void setAppMainObservableList(ObservableList<StudentModel> tvObservableList) {
         this.appMainObservableList = tvObservableList;
+    }
 
+    public void setSelectedItem(StudentModel selectedItem){
+        this.selectedId = selectedItem.getId();
+        this.selectedIndex = appMainObservableList.indexOf(selectedItem);
+        this.studentAgeInput.setText(selectedItem.getAge().toString());
+        this.studentNameInput.setText(selectedItem.getName());
     }
 
     private void closeStage(ActionEvent event) {

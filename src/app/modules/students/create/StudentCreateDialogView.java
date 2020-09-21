@@ -19,17 +19,16 @@ public class StudentCreateDialogView {
     private ObservableList<StudentModel> appMainObservableList;
 
     @FXML
-    void btnAddPersonClicked(ActionEvent event) {
-        System.out.println("btnAddPersonClicked");
+    void btnAddClicked(ActionEvent event) {
         String studentName = "";
         int studentAge = 0;
         try {
             studentName = studentNameInput.getText().trim();
             studentAge = Integer.parseInt(studentAgeInput.getText().trim());
-        } catch (Exception e) {}
+        } catch (Exception e) {
+            System.out.println(e.toString());
+        }
 
-        System.out.println(studentName);
-        System.out.println(studentAge);
         if(studentName.length() > 0 &&studentAge > 0) {
             StudentModel data = new StudentModel(studentName, studentAge);
             appMainObservableList.add(data);

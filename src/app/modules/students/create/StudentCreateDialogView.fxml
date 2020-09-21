@@ -34,7 +34,7 @@
                 </HBox>
                 <HBox alignment="CENTER_RIGHT">
                     <children>
-                        <Button mnemonicParsing="false" onAction="#btnAddPersonClicked" text="Add" />
+                        <Button mnemonicParsing="false" onAction="#btnAddClicked" text="Add" />
                     </children>
                     <opaqueInsets>
                         <Insets />

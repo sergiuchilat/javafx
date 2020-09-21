@@ -12,12 +12,10 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseButton;
@@ -91,9 +89,9 @@ public class StudentListView extends View implements Initializable {
 
         tableView.setOnMouseClicked((MouseEvent event) -> {
             if (event.getButton().equals(MouseButton.PRIMARY) && event.getClickCount() == 2){
-                System.out.println(tableView.getSelectionModel().getSelectedItem());
+                System.out.println(tableView.getSelectionModel().getSelectedItem().getId());
                 try {
-                    onOpenEditDialog();
+                    onOpenEditDialog(tableView.getSelectionModel().getSelectedItem());
                 } catch (Exception e) {
                     System.out.println(e);
                 }
@@ -117,12 +115,13 @@ public class StudentListView extends View implements Initializable {
     }
 
     @FXML
-    void onOpenEditDialog() throws IOException {
+    void onOpenEditDialog(StudentModel selectedItem) throws IOException {
         try {
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../create/StudentEditDialogView.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../edit/StudentEditDialogView.fxml"));
             Parent parent = fxmlLoader.load();
             StudentEditDialogView editDialogView = fxmlLoader.<StudentEditDialogView>getController();
             editDialogView.setAppMainObservableList(students);
+            editDialogView.setSelectedItem(selectedItem);
 
             Scene scene = new Scene(parent, 300, 200);
             Stage stage = new Stage();

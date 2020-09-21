@@ -8,7 +8,7 @@
     <children>
         <VBox alignment="CENTER" layoutX="131.0" layoutY="50.0" prefHeight="200.0" prefWidth="100.0" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0">
             <children>
-                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Adding Student" />
+                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Edit Student" />
                 <HBox alignment="CENTER" prefHeight="50.0" prefWidth="200.0" spacing="10.0">
                     <children>
                         <Label alignment="CENTER_RIGHT" minWidth="100.0" text="Name" />
@@ -29,7 +29,7 @@
                 </HBox>
                 <HBox alignment="CENTER_RIGHT">
                     <children>
-                        <Button mnemonicParsing="false" onAction="#btnAddPersonClicked" text="Add" />
+                        <Button mnemonicParsing="false" onAction="#btnUpdateClicked" text="Add" />
                     </children>
                     <opaqueInsets>
                         <Insets />

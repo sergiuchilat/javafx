@@ -1,5 +1,7 @@
 package app.modules.auth;
 
+import app.core.exceptions.MyAuthorizationErrorException;
+import app.core.exceptions.MyNetworkErrorException;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
 import javafx.event.EventHandler;
@@ -38,7 +40,29 @@ public class LoginFormView extends View{
         loginButton.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>(){
             @Override
             public void handle(MouseEvent mouseEvent) {
-                login(loginFormViewModel);
+                usernameInput.setEditable(false);
+                passwordInput.setEditable(false);
+                loginButton.setDisable(true);
+                try {
+                    Thread.sleep(3000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                try {
+                    login(loginFormViewModel);
+                } catch (MyAuthorizationErrorException e) {
+                    System.out.println(e.toString());
+                    usernameInput.setStyle("-fx-text-inner-color: red");
+                    passwordInput.setStyle("-fx-text-inner-color: red");
+                } catch (MyNetworkErrorException e) {
+                    System.out.println(e.toString());
+                    usernameInput.setStyle("-fx-text-inner-color: red");
+                    passwordInput.setStyle("-fx-text-inner-color: red");
+                } finally {
+                    usernameInput.setEditable(true);
+                    passwordInput.setEditable(true);
+                    loginButton.setDisable(false);
+                }
             }
         });
 
@@ -63,15 +87,19 @@ public class LoginFormView extends View{
         });
     }
 
-    private void login(LoginFormViewModel loginFormViewModel){
+    private void login(LoginFormViewModel loginFormViewModel) throws MyNetworkErrorException, MyAuthorizationErrorException {
         Stage mainStage = (Stage) loginButton.getScene().getWindow();
         authResponseStatusLabel.setText("");
         if(loginFormViewModel.login()){
             StudentListView mainPageView = new StudentListView();
             mainPageView.loadView(mainStage, "StudentList");
             authResponseStatusLabel.setText("Success");
+            usernameInput.setStyle("-fx-text-inner-color: green");
+            passwordInput.setStyle("-fx-text-inner-color: green");
         } else {
             authResponseStatusLabel.setText("Incorrect login or password");
+            usernameInput.setStyle("-fx-text-inner-color: red");
+            passwordInput.setStyle("-fx-text-inner-color: red");
         }
     }
 }

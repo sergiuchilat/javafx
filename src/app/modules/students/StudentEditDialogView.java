@@ -8,6 +8,7 @@ import javafx.scene.Node;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
+import java.util.Arrays;
 import java.util.Collections;
 
 public class StudentEditDialogView {
@@ -35,7 +36,7 @@ public class StudentEditDialogView {
             System.out.println(e.toString());
         }
 
-        if(studentName.length() > 0 &&studentAge > 0) {
+        if (studentName.length() > 0 && studentAge > 0) {
             appMainObservableList.set(selectedIndex, new StudentModel(studentNameInput.getText(), Integer.valueOf(studentAgeInput.getText())));
             //studentsRepository.update(selectedItem.getId(), new StudentModel(studentNameInput.getText(), Integer.valueOf(studentAgeInput.getText())));
             //appMainObservableList.clear();
@@ -45,7 +46,7 @@ public class StudentEditDialogView {
     }
 
     @FXML
-    void btnDeleteClicked(ActionEvent event){
+    void btnDeleteClicked(ActionEvent event) {
         appMainObservableList.remove(selectedItem);
         closeStage(event);
     }
@@ -54,7 +55,7 @@ public class StudentEditDialogView {
         this.appMainObservableList = tvObservableList;
     }
 
-    public void setSelectedItem(StudentModel selectedItem){
+    public void setSelectedItem(StudentModel selectedItem) {
         this.selectedItem = selectedItem;
         this.selectedIndex = appMainObservableList.indexOf(selectedItem);
         this.studentAgeInput.setText(selectedItem.getAge().toString());
@@ -62,8 +63,8 @@ public class StudentEditDialogView {
     }
 
     private void closeStage(ActionEvent event) {
-        Node  source = (Node)  event.getSource();
-        Stage stage  = (Stage) source.getScene().getWindow();
+        Node source = (Node) event.getSource();
+        Stage stage = (Stage) source.getScene().getWindow();
         stage.close();
     }
 }

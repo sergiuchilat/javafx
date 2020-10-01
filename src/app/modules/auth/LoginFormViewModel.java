@@ -1,5 +1,7 @@
 package app.modules.auth;
 
+import app.core.exceptions.MyAuthorizationErrorException;
+import app.core.exceptions.MyNetworkErrorException;
 import javafx.beans.property.ReadOnlyBooleanProperty;
 import javafx.beans.property.ReadOnlyBooleanWrapper;
 import javafx.beans.property.SimpleStringProperty;
@@ -28,10 +30,7 @@ public class LoginFormViewModel {
         return isLoginPossible.getReadOnlyProperty();
     }
 
-    public boolean login(){
-        if(username.getValueSafe().length() > 0 && password.getValueSafe().length() > 0) {
-            return this.loginRepository.login(username.getValue(), password.getValue());
-        }
-        return false;
+    public boolean login() throws MyNetworkErrorException, MyAuthorizationErrorException {
+        return this.loginRepository.login(username.getValue(), password.getValue());
     }
 }

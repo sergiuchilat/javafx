@@ -1,6 +1,5 @@
 package app.modules.students;
 
-import app.models.Student;
 import app.models.StudentModel;
 
 import java.util.Arrays;
@@ -10,7 +9,6 @@ public class StudentsRepository {
 
 
     public StudentModel[] getAll(){
-        System.out.println(Arrays.toString(students));
         if(students[0] == null){
             students[0] = new StudentModel("Ion Creanga", 12);
             students[1] = new StudentModel("Mihai Eminescu", 23);

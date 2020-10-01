@@ -19,7 +19,7 @@ public class StudentCreateDialogView {
     private TextField studentAgeInput;
 
     private ObservableList<StudentModel> appMainObservableList;
-    private StudentsRepository studentsRepository = new StudentsRepository();
+    private final StudentsRepository studentsRepository = new StudentsRepository();
 
     @FXML
     void btnAddClicked(ActionEvent event) {
